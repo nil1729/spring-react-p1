@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = {
+        "http://localhost:3000",
+        "https://spring-react-p1-nil1729.netlify.app"
+})
 @RestController
 @RequestMapping("/v1/courses")
 public class CourseController {

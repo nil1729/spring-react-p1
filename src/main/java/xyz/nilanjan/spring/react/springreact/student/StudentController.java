@@ -12,7 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@CrossOrigin(origins = {"http://localhost:3000"})
+
+@CrossOrigin(origins = {
+        "http://localhost:3000",
+        "https://spring-react-p1-nil1729.netlify.app"
+})
 @RestController
 @RequestMapping("/v1/students")
 public class StudentController {

@@ -34,3 +34,5 @@ build/
 
 ### Application Properties ###
 application-prod.yml
+# Local Netlify folder
+.netlify
