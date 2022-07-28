@@ -30,7 +30,7 @@ const AddStudentModal = ({
 			openNotificationWithIcon('error', responseBody.httpStatus, responseBody.message);
 		}
 
-		setAddingNewStudent(true);
+		setAddingNewStudent(false);
 	}
 
 	return (

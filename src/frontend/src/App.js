@@ -73,7 +73,7 @@ const App = () => {
 							</Breadcrumb>
 						</Col>
 
-						<Col span={2} offset={14}>
+						<Col span={2} offset={12}>
 							<Button
 								type='primary'
 								shape='round'

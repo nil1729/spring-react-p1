@@ -10,6 +10,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/students")
@@ -40,5 +41,11 @@ public class StudentController {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Student registered successfully");
         return ResponseEntity.created(uri).body(response);
+    }
+
+    @GetMapping("{studentId}")
+    public ResponseEntity<Object> getStudentCourses(@PathVariable("studentId")UUID studentId){
+        List<StudentCourse> studentCourses = studentService.getStudentCourses(studentId);
+        return ResponseEntity.ok().body(studentCourses);
     }
 }

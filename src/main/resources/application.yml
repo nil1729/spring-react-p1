@@ -8,7 +8,7 @@ server:
 spring:
   datasource:
     hikari:
-      jdbc-url: jdbc:postgresql://localhost:5432/react_spring_demo
+      jdbc-url: jdbc:postgresql://localhost:5432/v2_react_spring_demo
       username: postgres
       password: password
       maximum-pool-size: 30
