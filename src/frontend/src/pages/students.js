@@ -1,73 +1,69 @@
-import { Table, Spin, Avatar } from 'antd';
-import React, { useState, useEffect } from 'react';
+import { UserAddOutlined } from '@ant-design/icons';
+import { Breadcrumb, Layout, Col, Row, Button } from 'antd';
+import React, { useState } from 'react';
+import StudentList from '../components/students/student-list';
+import AddStudentModal from '../components/students/add-student-modal';
 
-function Students() {
-	const [loading, setLoading] = useState(true);
-	const [studentList, setStudentList] = useState([]);
+const { Content } = Layout;
 
-	const columns = [
-		{
-			title: '',
-			dataIndex: 'studentAvatar',
-			key: 'studentAvatar',
-			render: (text) => <Avatar>{text}</Avatar>,
-		},
-		{
-			title: 'Student Id',
-			dataIndex: 'studentId',
-			key: 'studentId',
-			render: (text) => <a>{text}</a>,
-		},
-		{
-			title: 'First Name',
-			dataIndex: 'firstName',
-			key: 'firstName',
-		},
-		{
-			title: 'Last Name',
-			dataIndex: 'lastName',
-			key: 'lastName',
-		},
-		{
-			title: 'Email Address',
-			dataIndex: 'email',
-			key: 'email',
-		},
-		{
-			title: 'Gender',
-			dataIndex: 'gender',
-			key: 'gender',
-		},
-	];
+function StudentPage({ openNotificationWithIcon }) {
+	const [modalVisibilityState, setModalVisibilityState] = useState(false);
 
-	useEffect(() => {
-		fetch('/api/v1/students')
-			.then((res) => res.json())
-			.then((student_data) => {
-				setStudentList(
-					student_data.map((item, index) => {
-						return {
-							key: index,
-							...item,
-							studentAvatar: item.firstName.slice(0, 1) + item.lastName.slice(0, 1),
-						};
-					})
-				);
-				setLoading(false);
-			});
-	}, []);
+	function changeModalVisibilityState(visibilityState) {
+		setModalVisibilityState(visibilityState);
+	}
 
 	return (
-		<div>
-			{loading ? (
-				<div className='loader' style={{ textAlign: 'center' }}>
-					<Spin size='large' />
+		<>
+			<AddStudentModal
+				modalVisibilityState={modalVisibilityState}
+				changeModalVisibilityState={changeModalVisibilityState}
+				openNotificationWithIcon={openNotificationWithIcon}
+			/>
+
+			<Content
+				style={{
+					margin: '0 16px',
+				}}
+			>
+				<Row
+					style={{
+						margin: '16px 0',
+					}}
+				>
+					<Col span={8}>
+						<Breadcrumb>
+							<Breadcrumb.Item>Admin Portal</Breadcrumb.Item>
+							<Breadcrumb.Item>Students</Breadcrumb.Item>
+						</Breadcrumb>
+					</Col>
+
+					<Col span={2} offset={12}>
+						<Button
+							type='primary'
+							shape='round'
+							icon={<UserAddOutlined />}
+							onClick={() => {
+								changeModalVisibilityState(true);
+							}}
+						>
+							Add Student
+						</Button>
+					</Col>
+				</Row>
+
+				<div
+					className='site-layout-background'
+					style={{
+						padding: 24,
+						minHeight: 360,
+					}}
+				>
+					<StudentList />
 				</div>
-			) : (
-				<Table columns={columns} dataSource={studentList} />
-			)}
-		</div>
+			</Content>
+		</>
 	);
 }
 
-export default Students;
+export default StudentPage;

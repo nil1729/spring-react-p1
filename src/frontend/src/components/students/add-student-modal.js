@@ -1,6 +1,6 @@
-import { Button, Form, Input, Modal, Radio } from 'antd';
 import React, { useState } from 'react';
 import AddStudentForm from './add-student-form';
+import { sendPostRequest } from '../../utils/fetch';
 
 const AddStudentModal = ({
 	modalVisibilityState,
@@ -12,13 +12,7 @@ const AddStudentModal = ({
 	async function onCreate(values) {
 		setAddingNewStudent(true);
 
-		const response = await fetch('/api/v1/students', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(values),
-		});
+		const response = await sendPostRequest('api/v1/students', values);
 		const responseBody = await response.json();
 
 		if (response.ok) {
