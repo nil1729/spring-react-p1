@@ -167,3 +167,4 @@
 - [Deployment using Digital Ocean](https://gsswain.medium.com/springboot-digitalocean-droplets-410b8bbc6fe6)
 - [Service File Setup](https://www.linode.com/docs/guides/start-service-at-boot/)
 - [Nginx Setup](https://gist.github.com/bradtraversy/cd90d1ed3c462fe3bddd11bf8953a896)
+- [Dockerizing Spring Application](https://www.baeldung.com/dockerizing-spring-boot-application)
