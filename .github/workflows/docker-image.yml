@@ -6,7 +6,7 @@ on:
       - 'master'
 
 jobs:
-  docker:
+  publish_image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -26,8 +26,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - uses: docker-practice/actions-setup-docker@master
-      - run: |
+      - name: Docker Setup on Container
+        uses: docker-practice/actions-setup-docker@master
+
+      - name: Docker Image build and publish
+        run: |
           branch=${GITHUB_REF##*/}
           sha=${GITHUB_SHA::8}
           build_id="${branch}-${sha}"
