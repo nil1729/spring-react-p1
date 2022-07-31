@@ -1,0 +1,11 @@
+FROM alpine:edge
+
+RUN apk add --no-cache openjdk8
+RUN apk add --no-cache maven
+
+WORKDIR /app
+COPY . /app
+
+RUN mvn clean package -DskipTests -Pbuild-ci-test
+
+CMD ["mvn", "test", "-Pbuild-ci-test"]

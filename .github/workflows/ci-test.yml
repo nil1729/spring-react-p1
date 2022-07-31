@@ -1,0 +1,26 @@
+name: Integration Testing
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches:
+      - 'master'
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  running_tests:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Start Backend Container with Local Postgres Database
+        run: docker-compose -f "docker-compose.yml" up backend
+
+      - name: Stop Containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
