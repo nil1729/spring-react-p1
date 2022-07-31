@@ -1,0 +1,35 @@
+name: Docker Image (Build and Push)
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Add mask
+        run: |
+          echo "::add-mask::${{ secrets.DATABASE_URL }}"
+
+      - name: Decrypt large secret
+        run: ./.github/scripts/decrypt_secret.sh
+        env:
+          LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - uses: docker-practice/actions-setup-docker@master
+      - run: |
+          branch=${GITHUB_REF##*/}
+          sha=${GITHUB_SHA::8}
+          build_id="${branch}-${sha}"
+          docker build -t nil1729/spring-react-p1:"${build_id}" .
+          docker push nil1729/spring-react-p1:"${build_id}"
