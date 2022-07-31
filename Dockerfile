@@ -1,5 +1,4 @@
 FROM alpine:edge
-MAINTAINER nilanjan.deb.nil1729
 
 RUN apk add --no-cache openjdk8
 RUN apk add --no-cache maven
